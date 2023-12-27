@@ -141,8 +141,15 @@ LayupDrawer.prototype = {
     },
 
     drawExtraInfo: function(ctx) {
+        ctx.save()
+        ctx.rotate(Math.PI / 2)
         ctx.font = "20px Noto Sans"
-        ctx.fillText("Slab Thickness (mm)", 40, 400)
+        ctx.fillText("Slab Thickness (mm)", 250, -20)
+        ctx.restore()
+
+        ctx.save()
+        ctx.font = "20px Noto Sans"
         ctx.fillText("Primary Direction", 580, 635)
+        ctx.restore()
     }
 };
