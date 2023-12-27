@@ -18,48 +18,26 @@ LayupDrawer.prototype = {
         const perpendiculargrain = new Image();
         const ctx = canvas.getContext("2d");
 
-        ctx.beginPath()
-        ctx.strokeStyle = "gray"
-        ctx.shadowOffsetX = 10
-        ctx.shadowOffsetY = 10
-        ctx.shadowBlur = 10
-        ctx.strokeRect(150, 40, 1080, 530);
-
-        ctx.beginPath()
-        ctx.strokeStyle = "gray"
-        ctx.shadowOffsetX = 10
-        ctx.shadowOffsetY = 10
-        ctx.shadowBlur = 10
-        ctx.strokeRect(2, 2, 1340, 640);
-
-        for (let i = 0; i < 20; i++) {
-        }
-        ctx.beginPath()
-        ctx.moveTo(10, 42);
-        ctx.lineTo(150, 42);
-        ctx.lineWidth = 2;
-        ctx.stroke()
-        ctx.moveTo(10, 42);
-        ctx.lineTo(150, 82);
-        ctx.lineWidth = 2;
-        ctx.stroke()
-        ctx.moveTo(10, 42);
-        ctx.lineTo(150, 42);
-        ctx.lineWidth = 2;
-        ctx.stroke()
+        this.drawSmallCanvas(ctx)
+        this.drawBigCanvas(ctx)
         
-        paralelgrain.addEventListener("load", (e) => {
-            ctx.drawImage(paralelgrain, 400, 57, 75, 107, 150, 40, 1080, 100)
-            ctx.drawImage(paralelgrain, 400, 67, 75, 107, 150, 240, 1080, 100)
-            ctx.drawImage(paralelgrain, 400, 39, 75, 107, 150, 470, 1080, 100)
-        })
-        paralelgrain.src = "../images/paralel-grain-0.jpg"
+        for (let i = 0; i < 15; i++) {
+            ctx.beginPath()
+            ctx.moveTo(130, i * 40.7)
+            ctx.lineTo(150, i * 40.7)
+            ctx.strokeStyle = "gray"
+            ctx.stroke();
+        }
 
-        perpendiculargrain.addEventListener('load', () => {
-            ctx.drawImage(perpendiculargrain, 900, 53, 375 * Math.tan(180), 407, 150, 140, 1080, 100)
-            ctx.drawImage(perpendiculargrain, 900, 33, 375 * Math.tan(180), 407, 150, 340, 1080, 130)
-        })
-        perpendiculargrain.src = "../images/perpendicular-grain-90.jpg"
+        for (let i = 0; i < 9; i++) {
+            ctx.beginPath()
+            ctx.moveTo(i * 150, 590)
+            ctx.lineTo(i * 150, 570)
+            ctx.strokeStyle = "gray"
+            ctx.stroke();
+        }
+        
+        this.drawBoard(ctx, paralelgrain, perpendiculargrain)
     },
 
     /**
@@ -72,7 +50,48 @@ LayupDrawer.prototype = {
         
     },
 
-    /**
-     * Add more functions as you need
-     */
+    drawSmallCanvas: function(ctx) {
+        ctx.beginPath()
+        ctx.strokeStyle = "gray"
+        ctx.shadowOffsetX = 10
+        ctx.shadowOffsetY = 10
+        ctx.shadowBlur = 10
+        ctx.strokeRect(150, 40, 1080, 530);
+    },
+
+    drawBigCanvas: function(ctx) {
+        ctx.beginPath()
+        ctx.strokeStyle = "gray"
+        ctx.shadowOffsetX = 10
+        ctx.shadowOffsetY = 10
+        ctx.shadowBolur = 10
+        ctx.strokeRect(2, 2, 1340, 640);
+    },
+
+    drawGreenLineHorizontal: function(ctx) {
+        for (let j = 0; j < 6; j++) {
+            ctx.beginPath()
+            ctx.moveTo(150, j * 99.9);
+            ctx.lineTo(1230, j * 99.9)
+            ctx.strokeStyle = "#51F728"
+            ctx.stroke()
+        }
+    },
+
+    drawBoard: function(ctx, object1, object2) {
+        object1.addEventListener("load", (e) => {
+            ctx.drawImage(object1, 400, 57, 75, 107, 150, 40, 1080, 100)
+            ctx.drawImage(object1, 400, 67, 75, 107, 150, 240, 1080, 100)
+            ctx.drawImage(object1, 400, 39, 75, 107, 150, 470, 1080, 100)
+            this.drawGreenLineHorizontal(ctx)
+        })
+        object1.src = "../images/paralel-grain-0.jpg"
+        
+        object2.addEventListener('load', () => {
+            ctx.drawImage(object2, 900, 53, 375 * Math.tan(180), 407, 150, 140, 1080, 100)
+            ctx.drawImage(object2, 900, 33, 375 * Math.tan(180), 407, 150, 340, 1080, 130)
+            this.drawGreenLineHorizontal(ctx)
+        })
+        object2.src = "../images/perpendicular-grain-90.jpg"
+    }
 };
