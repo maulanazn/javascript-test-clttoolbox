@@ -52,8 +52,7 @@ LayupDrawer.prototype = {
      * @param {Number} length Layup length in mm
      */
     drawLayup : function (layup, length) {
-        const ctx = canvas.getContext("2d");
-        this.drawBoardInfo(ctx, layup);
+        
     },
 
     drawSmallCanvas: function(ctx) {
@@ -133,13 +132,12 @@ LayupDrawer.prototype = {
         ctx.fillText(0, 143, 540);
     },
 
-    drawBoardInfo: function(ctx, layup) {
-        ctx.font = "15px Noto Sans"
-        ctx.fillText(`${layup.t1.label.toLowerCase()}: ${layup.t1.thickness} ${layup.t1.grade}`, 1150, 80)
-        ctx.fillText(`${layup.t2.label.toLowerCase()}: ${layup.t2.thickness} ${layup.t2.grade}`, 1150, 180)
-        ctx.fillText(`${layup.t3.label.toLowerCase()}: ${layup.t3.thickness} ${layup.t3.grade}`, 1150, 280)
-        ctx.fillText(`${layup.t4.label.toLowerCase()}: ${layup.t4.thickness} ${layup.t4.grade}`, 1150, 380)
-        ctx.fillText(`${layup.t5.label.toLowerCase()}: ${layup.t5.thickness} ${layup.t5.grade}`, 1150, 460)
+    drawBoardInfo: function(ctx, layup) {        
+        let layerObject = Object.values(layup).length + 1
+        for (let i = 1; i < layerObject; i++) {
+            ctx.font = "15px Noto Sans"
+            ctx.fillText(`${layup["t" + i].label.toLowerCase()}: ${layup["t" + i].thickness} ${layup["t" + i].grade}`, 1150, i * 95)
+        }
     },
 
     drawExtraInfo: function(ctx) {
